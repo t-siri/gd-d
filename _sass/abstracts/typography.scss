@@ -1,0 +1,376 @@
+/* --------------------------------
+Typography
+https://medium.com/codyhouse/create-your-design-system-part-1-typography-7c630d9092bd
+-------------------------------- */
+/*
+Just like colours this is where you set the style of your target project and assign your fonts, font-sizes, font spacings.
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300;400;600&display=swap');
+
+/* Font family */
+$body-font-family: "Open Sans", "Lato", Arial, Helvetica, sans-serif;
+$heading-font-family: "Abril Fatface", cursive;
+$source-font-family: "JetBrains Mono";
+
+$base-font-family: $body-font-family;
+$base-font-size: convert-rem(16px) !default;
+$base-font-weight: 400;
+
+/* Weights */
+$text-light: 300;
+$text-regular: 400;
+$text-medium: 600;
+$text-bold: 700;
+
+$text-scale-ratio: 1.6;
+$text-label: 1rem;
+$text-logo: 1.5rem;
+
+/* Type scale */
+$text-xs: calc(1rem / (#{$text-scale-ratio} * #{$text-scale-ratio}));
+$text-sm: calc(1rem / #{$text-scale-ratio});
+$text-xsm: calc(#{$base-font-size} - 2px); //14px
+$text-smd: 1.35vw;
+$text-md: calc(1rem * #{$text-scale-ratio});
+$text-lg: calc(1rem * (#{$text-scale-ratio} * #{$text-scale-ratio}));
+$text-xl: calc(1rem * (#{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio}));
+$text-xxl: calc(0.9rem * (#{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio}));
+$text-xxxl: calc(
+	1rem *
+		(
+			#{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio}
+		)
+);
+$text-xxxxl: calc(
+	1rem *
+		(
+			#{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} * #{$text-scale-ratio} *
+				#{$text-scale-ratio}
+		)
+);
+
+/* Line height */
+$heading-line-height: 1.2;
+$body-line-height: 1.6;
+$desc-line-height: 1.4;
+$text-base-size: 1rem;
+
+$btn-font-size: $text-base-size;
+
+.monospace {
+	font-family: $source-font-family;
+}
+
+/*Scale down the text at a smaller screen size*/
+// @include breakpoint(md) {
+// 	$text-base-size: 1.2rem;
+// 	$text-scale-ratio: 1.25;
+// }
+
+/* Default HTML Selectors */
+
+body {
+	font-size: $text-base-size;
+	font-family: $body-font-family;
+	transition: 0.5s all;
+	font-weight: $text-regular;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+form legend,
+table caption {
+	@include themify {
+		color: themed("color-text-heading");
+	}
+
+	margin-bottom: $space-xxs;
+	line-height: $heading-line-height;
+	margin-block-start: 0;
+	margin-block-end: 0;
+	@include fontSmooth;
+}
+
+p {
+	font-family: $body-font-family;
+	font-size: $base-font-size;
+	line-height: $body-line-height;
+	margin-bottom: $space-xs;
+	@include fontSmooth;
+}
+
+form legend,
+table caption {
+	margin-bottom: $space-xxs;
+	line-height: $heading-line-height;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+	font-family: $heading-font-family;
+	color: $color-secondary;
+	@include text-shadow;
+}
+
+h1,
+.h1 {
+	//only use for seo
+	font-size: $text-xxl;
+	font-weight: $text-bold;
+
+	@include media(md) {
+		font-size: 7.9vw;
+	}
+
+	@include media(xsm) {
+		font-size: 8.7vw;
+	}
+}
+
+h2,
+.h2 {
+	font-size: $text-xl;
+	margin-bottom: $space-md;
+	font-weight: $text-bold;
+
+	@include media(smd) {
+		font-size: $text-lg;
+	}
+
+	@include media(xsm) {
+		font-size: 7vw;
+	}
+}
+
+h3,
+.h3 {
+	font-size: 2.19vw;
+	font-weight: $text-medium;
+
+	@include media(smd) {
+		font-size: $text-lg;
+	}
+}
+
+h4,
+.h4 {
+	font-size: $text-md;
+	font-weight: $text-medium;
+
+	&[class*="icon"] {
+		&:before,
+		&:after {
+			width: $text-md;
+			height: $text-md;
+		}
+	}
+}
+
+h5,
+.h5 {
+	font-size: $text-md;
+	font-weight: $text-regular;
+
+	&[class*="icon"] {
+		&:before,
+		&:after {
+			width: $text-md;
+			height: $text-md;
+		}
+	}
+}
+
+h6,
+.h6 {
+	font-size: $base-font-size;
+	font-weight: $text-medium;
+
+	&[class*="icon"] {
+		&:before,
+		&:after {
+			width: $base-font-size;
+			height: $base-font-size;
+		}
+	}
+}
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+	font-family: $body-font-family;
+}
+
+.heading-font {
+	font-family: $heading-font-family;
+	font-weight: $text-regular;
+}
+
+.body-font {
+	font-family: $base-font-family;
+	font-weight: $text-regular;
+}
+
+b,
+strong,
+.b {
+	font-weight: $text-bold;
+}
+
+.text-light {
+	font-weight: $text-light;
+}
+
+.i {
+	font-style: italic;
+}
+
+label {
+	font-size: $text-label;
+}
+
+textarea {
+	font-size: $base-font-size;
+	font-family: $body-font-family;
+}
+p a,
+li a {
+	&:focus {
+		@include text-shadow;
+	}
+}
+a:not(.no-a-style) {
+	line-height: 1.6;
+	font-family: $body-font-family;
+	text-decoration: none;
+
+	//Link sizes
+	&.link-sm {
+		font-size: $text-sm;
+	}
+
+	&.link-md {
+		font-size: $text-md;
+	}
+
+	&.link-bold {
+		font-weight: $text-bold;
+	}
+
+	&.link-rm-txt-dec {
+		color: $black;
+	}
+}
+
+.no-a-style {
+	color: inherit;
+	width: fit-content;
+	text-decoration: none;
+}
+
+p a {
+	font-weight: $text-bold;
+	@include themify {
+		color: themed("responsive-state");
+	}
+}
+
+/* Code */
+pre {
+	font-size: $base-font-size;
+}
+
+// Allow scrolling of code and tables
+article > table {
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	@include media(xsm) {
+		display: block;
+	}
+}
+
+samp,
+kbd {
+	padding: $space-xxxs $space-xxs;
+	margin: 0 $space-xxxs;
+}
+
+/* Lists */
+dl,
+ol,
+ul {
+	padding-left: $space-sm;
+}
+
+dl dt,
+dl dt dd,
+ol li,
+ul li {
+	line-height: $body-line-height;
+}
+
+/* Font types */
+.text-md {
+	font-size: $text-md;
+}
+
+.text-xsm {
+	font-size: $text-xsm;
+
+	&[class*="icon"] {
+		&:before,
+		&:after {
+			width: $text-xsm;
+			height: $text-xsm;
+		}
+	}
+}
+
+.text-smd {
+	font-size: $text-smd;
+
+	&[class*="icon"] {
+		&:before,
+		&:after {
+			width: $text-smd;
+			height: $text-smd;
+
+			@include media(md) {
+				width: 1.35rem;
+				height: 1.35rem;
+			}
+		}
+	}
+
+	@include media(md) {
+		font-size: 1.35rem;
+	}
+
+	@include media(xsm) {
+		font-size: $base-font-size;
+	}
+}
+
+//assigning colors in text
+@each $color-class, $color in $color-list {
+	.color--#{$color-class} {
+		color: $color;
+	}
+}

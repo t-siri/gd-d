@@ -1,0 +1,43 @@
+---
+permalink: /work
+title: Work
+---
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+
+<head>
+	{% include common/head.html %}
+</head>
+
+<body class="work-page">
+	{% include common/navigation.html %}
+
+	<main class="content">
+		<div class="top-section">
+		</div>
+
+		{% for item in site.data.work %}
+		<div class="border-box scroll-animation-false">
+			<p class="h2 border-box-heading">
+				{{ item.type }}
+			</p>
+
+			<div class="border-box__body">
+				<img src="/assets/img/work/{{ item.img }}.png" alt="{{ item.name}} image">
+
+				<a class="btn btn--solid btn--primary icon-left icon-arrow-right" href="{{item.url}}">
+					<span>view work</span>
+				</a>
+			</div>
+
+			<div class="border-box-footer">
+				<p class="h2">{{item.name}}</p>
+			</div>
+		</div>
+		{% endfor %}
+
+	</main>
+</body>
+{% include common/footer.html %}
+
+</html>

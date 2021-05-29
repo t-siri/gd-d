@@ -1,0 +1,326 @@
+/* --------------------------------
+Inputs
+-------------------------------- */
+/*
+Styling for all types of inputs - checkboxes, radios, selects, textareas and tooltips are imported.
+*/
+
+/******* INPUT VARIABLES *******/
+$input-font-size: $base-font-size;
+
+$input-md: calc(#{$btn-font-size} + 0.2rem);
+$input-lg: calc(#{$btn-font-size} + 2rem);
+
+$input-sm-width: calc(50% - #{$space-xs});
+$input-md-width: calc(100% - #{$space-xs});
+
+// z-index fix for checkboxes
+$z-index-back: 1;
+$z-index-front: 2;
+/* Style: outline, bottom line, left line
+standard, accent colour, success, warning
+icons and positioning
+Input types:
+Non-input tag types:
+*/
+$non-input-types: textarea, select, option;
+
+// Inline types: For the single line inputs which have text inside and no additional dropdowns
+$inline-text-input-types: 'input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="select"]';
+
+// Excluded types: For the buttons etc, which we don't want any input styles leaking into
+$excluded-input-types: '[type="button"], [type="submit"], [type="reset"]';
+
+// ----------------------------------------------
+// ---------- INPUT SPECIFIC VARIABLES ----------
+// ----------------------------------------------
+
+$input-font-size: $text-base-size;
+$input-radius: $radius;
+$input-margin: $space-sm;
+$input-border-width: $standard-border-width;
+
+// ----------------------------------
+// ---------- INPUT BORDER ----------
+// ----------------------------------
+
+// Set input bottom border
+// Removes the borders from the other 3 sides
+
+@mixin set-input-bottom-border {
+	&[type] {
+		border-top: none;
+		border-left: none;
+		border-right: none;
+	}
+}
+
+// --------------------------------
+// ---------- INPUT SIZE ----------
+// --------------------------------
+
+// Set input size
+// Sets the padding, font-size, line-height, and font-weight on the input
+// Doesn't set margins, min or max widths or heights, they are set by context
+// A size of heading replicates the size of a h1 element. Primarily used inmd
+@mixin set-input-size($size: standard) {
+	@if $size==standard {
+		font-weight: $text-regular;
+		font-size: $input-font-size;
+		line-height: $input-font-size;
+		padding: $space-xxs $space-xs;
+	} @else if $size==medium {
+		font-weight: $text-bold;
+		font-size: $text-md;
+		line-height: $text-md;
+		padding: $space-xxs $space-sm;
+		@include set-input-bottom-border;
+	} @else if $size==massive {
+		font-weight: $text-bold;
+		font-size: $text-lg;
+		line-height: $text-lg;
+		padding: $space-xs $space-sm;
+		@include set-input-bottom-border;
+	} @else if $size==heading {
+		font-weight: $text-bold;
+		font-size: 4.209rem; //Copied form the h1 declaration in the typography file
+		line-height: $heading-line-height;
+		padding: $space-xs;
+		@include set-input-bottom-border;
+		font-family: $heading-font-family;
+	} @else {
+		@error "The input size can only be massive, heading or standard (default). You used '#{$size}', which isn't handled in this mixin.";
+	}
+}
+
+// -----------------------------
+// ---------- COLOURS ----------
+// -----------------------------
+
+// Set Input Colours
+// This mixin does not allow for themes
+// This also sets the text colour for all elements inside.
+// text-colour defines what colour the text should be, this should ideally
+//      be either $color-text-light or $color-text-dark. This also sets the
+//      border colour and background colour (if bg type is solid)
+// bg-type defines whether the background on focus is transparent or solid.
+//      If solid, it is the contrasting colour to the provided text colour
+//      Accepted values are either 'solid' or 'transparent'
+// hover-color defines what colour the border changes to on hover (not focus)
+// force lets you redefine(reinforce) the colours when in a hover/focus/active state (i.e to override lampbot),
+//      it includes the colours which normally don't get redefined in a state
+//      this is included by default, set it to 'false' to deactivate
+@mixin set-input-colors($text-color, $bg-type: transparent, $hover-color: $grey-4, $force: force) {
+	@if ($force !=force and $force !=false) {
+		@error "This mixin supports force or false as a force option. You used: "+$force;
+	}
+
+	// Setting the text colour
+	&,
+	* {
+		color: $text-color;
+	}
+
+	// Setting the background colours
+	background-color: transparent;
+
+	@if ($force==force and $bg-type==transparent) {
+		// redefining the transparent background if force is used
+		@include states {
+			background-color: transparent;
+		}
+	}
+
+	@if ($bg-type !=transparent) {
+		&:focus {
+			background-color: get-contrasting-text-color($text-color);
+		}
+	}
+
+	// Setting the border colours
+	border-color: $text-color;
+
+	@if force==force {
+		&:focus,
+		&:active {
+			border-color: $text-color;
+		}
+	}
+
+	&:hover {
+		border-color: $hover-color;
+	}
+}
+
+// ---------------------------------------
+// ---------- BASE INPUT STYLES ----------
+// ---------------------------------------
+
+// This doesn't account for radio or checkboxes
+
+@mixin base-input-styles {
+	height: auto;
+	font-family: $body-font-family;
+	border-width: $input-border-width;
+	border-style: solid;
+	box-shadow: none;
+	margin: 0;
+	@include set-transition(all, 0.3s);
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+#{$inline-text-input-types},
+#{$non-input-types} {
+	@include base-input-styles;
+
+	&:focus {
+		//To override LAMPBot
+		border-width: $input-border-width;
+		box-shadow: none;
+		outline: none;
+
+		@include themify {
+			border-color: themed("responsive-state");
+		}
+	}
+
+	// Setting default colours and sizes
+	@include set-input-size;
+
+	@include themify {
+		@include set-input-colors(themed("color-text"), transparent, themed("responsive-state"));
+	}
+}
+
+// Setting larger line-heights for inputs which go over multiple lines.
+textarea {
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	line-height: calc(#{$input-font-size} * 1.8);
+}
+
+// ----------------------------
+// ---------- LABELS ----------
+// ----------------------------
+label {
+	margin-bottom: $space-xxxs;
+
+	&,
+	* {
+		font-weight: $text-regular;
+
+		@include themify {
+			color: themed(color-text);
+		}
+	}
+}
+
+.input-group {
+	position: relative;
+	display: grid;
+	grid-template-rows: min-content min-content;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		"label tooltip"
+		"input input";
+	width: auto;
+	max-width: 100%;
+	min-width: convert-rem(250px);
+
+	@include media(xs, sm, md) {
+		min-width: convert-rem(150px);
+	}
+
+	cursor: default;
+	outline: none;
+
+	label {
+		display: inline-block;
+		font-weight: $text-regular;
+		grid-area: label;
+		cursor: default;
+	}
+
+	span {
+		font-weight: bold;
+		_::-webkit-full-page-media,
+		_:future,
+		:root .panel {
+			background-color: #ffe7d0;
+		}
+	}
+
+	//loops through for color assignments
+	@each $color-class, $color in $color-list {
+		&.input--#{$color-class} {
+			input {
+				border-color: $color !important;
+			}
+		}
+	}
+
+	input,
+	textarea {
+		grid-area: input;
+		outline: none;
+		//margin and padding for inputs without type
+		padding: $space-xs;
+		margin: $space-xs 0;
+		width: 100%;
+
+		@include themify {
+			border-color: get-contrasting-text-color(themed("background-color"));
+			color: get-contrasting-text-color(themed("background-color"));
+		}
+	}
+
+	input::placeholder,
+	textarea::placeholder {
+		@include themify {
+			color: transparentize(get-contrasting-text-color(themed("background-color")), 0.1);
+		}
+	}
+
+	textarea {
+		height: convert-rem(160px);
+		resize: none;
+	}
+
+	&:focus {
+		label {
+			outline: none;
+			border: convert-rem(1px) solid $black;
+		}
+	}
+
+	/*This will re-arrange the elements within the input-group so that inputs and labels can be placed side-by-side to maximise space*/
+	&.input-group-inline {
+		grid-template-areas:
+			"label input tooltip"
+			"validation validation validation";
+		grid-template-columns: max-content 1fr min-content;
+		align-items: center;
+
+		label {
+			margin-right: $space-sm;
+		}
+
+		input {
+			flex: auto;
+		}
+
+		.tooltip {
+			top: 1.2rem;
+		}
+	}
+
+	&.input-group-block {
+		flex-direction: column;
+	}
+}
+
+/*Currently commented out until we require checkboxes or the tag selectors in blog */
+// @import 'checkbox.scss';

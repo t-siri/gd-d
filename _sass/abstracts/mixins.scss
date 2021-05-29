@@ -1,0 +1,419 @@
+// Mixins
+// Mixins are one step more than variables. For instance you can use mxins to put in flexbox and it's browser prefixes,
+// or consistant patterns like borders for particular components. Like variables, if you find yourself writing code over and over
+// make it into a mixin.
+
+//****************-------MEDIA QUERIES--------****************
+// Breakpoints for CSS variables
+// Used for the typography, spacing and the inputs
+
+@mixin breakpoint($class) {
+	@if $class==xs {
+		@media (max-width: map-get($breakpoints, xs)) {
+			@content;
+		}
+	} @else if $class==xsm {
+		@media (max-width: map-get($breakpoints, xsm)) {
+			@content;
+		}
+	} @else if $class==sm {
+		@media (max-width: map-get($breakpoints, sm)) {
+			@content;
+		}
+	} @else if $class==md {
+		@media (max-width: map-get($breakpoints, md)) {
+			@content;
+		}
+	} @else if $class==lg {
+		@media (max-width: map-get($breakpoints, lg)) {
+			@content;
+		}
+	} @else if $class==xl {
+		@media (max-width: map-get($breakpoints, xl)) {
+			@content;
+		}
+	} @else {
+		@error "Breakpoint mixin supports: xs, xsm, sm, md, lg, xl";
+	}
+}
+
+//query for ALL medias
+@mixin media($keys...) {
+	@each $key in $keys {
+		@media (max-width: map-get($breakpoints, $key)) {
+			@content;
+		}
+	}
+}
+
+//query for ALL medias
+@mixin media-min($keys...) {
+	@each $key in $keys {
+		@media (min-width: map-get($breakpoints, $key)) {
+			@content;
+		}
+	}
+}
+
+//****************-------END MEDIA QUERIES--------****************
+
+//****************-------PSEUDO ELEMENTS MIXINS--------****************
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
+	content: $content;
+	display: $display;
+	position: $pos;
+}
+
+//****************-------FONT RENDERING--------****************
+// edit font rendering -> tip: use for light text on dark backgrounds
+@mixin fontSmooth {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+//****************-------END FONT RENDERING--------***************
+
+//****************-------ICONS--------****************
+// For adding font icons to elements using CSS pseudo-elements
+// http://jaydenseric.com/blog/fun-with-sass-and-font-icons
+@mixin icon($position: before, $icon: false, $styles: true) {
+	@if $position==both {
+		$position: "before, &:after";
+	}
+
+	// Either a :before or :after pseudo-element, or both, defaulting to :before
+	&:#{$position} {
+		@if $icon {
+			// A particular icon has been specified
+			-webkit-mask: url(/assets/icon/#{$icon}.svg);
+			mask: url(/assets/icon/#{$icon}.svg);
+			-webkit-mask-size: cover;
+			mask-size: cover;
+			height: convert-rem(16px);
+			width: convert-rem(16px);
+			display: inline-block;
+			content: "";
+
+			@include themify {
+				background-color: get-contrasting-text-color(themed("background-color"));
+			}
+		}
+
+		@if $styles {
+			// Supportive icon styles required
+			/* use !important to prevent issues with browser extensions that change fonts */
+			// font-family: 'lightning-icons', 'lato' !important;
+			// speak: none;
+			// font-style: normal;
+			// font-weight: normal;
+			// font-variant: normal;
+			// text-transform: none;
+			// line-height: 1;
+			// /* Better Font Rendering =========== */
+			// -webkit-font-smoothing: antialiased;
+			// -moz-osx-font-smoothing: grayscale;
+		}
+
+		@if $position==before {
+			margin-right: $space-xxs;
+		} @else {
+			margin-left: $space-xxs;
+		}
+
+		// Include any extra rules supplied for the pseudo-element
+		@content;
+	}
+}
+
+//For when you only want the icon and no text
+@mixin icon-only {
+	padding: $space-xs $space-xs;
+
+	&:before,
+	:after {
+		margin: 0em 0em;
+	}
+}
+
+//****************-------END ICONS--------*****************
+//****************-------COLOUR THEMES--------*****************
+/* Mixin to convert the colours over to the right theme */
+$theme-map: null;
+
+@function themed($key) {
+	@return map-get($theme-map, $key);
+}
+
+@mixin themify($themes: $themes) {
+	@each $theme, $map in $themes {
+		.theme-#{$theme} & {
+			$theme-map: () !global;
+
+			@each $key, $submap in $map {
+				$value: map-get(map-get($themes, $theme), "#{$key}");
+				$theme-map: map-merge(
+					$theme-map,
+					(
+						$key: $value,
+					)
+				) !global;
+			}
+
+			@content;
+			$theme-map: null !global;
+		}
+	}
+}
+
+//****************-------END COLOUR THEMES--------*****************
+//****************-------BOX SHADOWS--------*****************
+
+@mixin inner-box-shadow($horiz, $vert, $blur, $spread, $color) {
+	-webkit-box-shadow: inset $horiz $vert $blur $spread $color;
+	-moz-box-shadow: inset $horiz $vert $blur $spread $color;
+	box-shadow: inset $horiz $vert $blur $spread $color;
+}
+
+// Use this to add a box-shadow to an element. The type indicates how prominent a shadow is
+// x-Subtle is "extra-subtle" and is the smallest box-shadow avaialble
+// major is the most prominent
+@mixin shadow-box($type: standard) {
+	@include themify {
+		$shadow-color: themed("shadow-color");
+
+		@if ($type==minor) {
+			box-shadow: 0 5px 20px 5px $shadow-color, 0 0px 10px 0 $shadow-color;
+		} @else if ($type==standard) {
+			box-shadow: 0 10px 30px 5px $shadow-color, 0 0px 10px 0 $shadow-color;
+		} @else if ($type==major) {
+			box-shadow: 0 20px 50px 5px $shadow-color, 0 0px 10px 0 $shadow-color;
+		} @else if ($type==subtle) {
+			box-shadow: 0 5px 15px $shadow-color;
+		} @else if ($type==x-subtle) {
+			box-shadow: 0 3px 15px $shadow-color;
+		} @else if ($type==subtle-right-bottom) {
+			box-shadow: 7px 7px 7px $shadow-color;
+		} @else if ($type==subtle-bottom) {
+			box-shadow: 0 13px 15px $shadow-color;
+		} @else {
+			@error "The shadow-box mixin only accepts x-subtle, subtle, minor, standard or major as box-shadow types";
+		}
+	}
+}
+
+//****************-------END BOX SHADOWS--------*****************
+
+//****************-------SHAPES--------*****************
+
+/*triangle creator - usually used for tooltips*/
+
+@mixin css-triangle($color, $direction, $size: convert-rem(6px), $position: absolute, $round: false) {
+	@include pseudo($pos: $position);
+	width: 0;
+	height: 0;
+
+	@if $round {
+		border-radius: convert-rem(3px);
+	}
+
+	@if $direction==down {
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-top: $size solid $color;
+		margin-top: 0 - round($size / 2.5);
+	} @else if $direction==up {
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-bottom: $size solid $color;
+		margin-bottom: 0 - round($size / 2.5);
+	} @else if $direction==right {
+		border-top: $size solid transparent;
+		border-bottom: $size solid transparent;
+		border-left: $size solid $color;
+		margin-right: -$size;
+	} @else if $direction==left {
+		border-top: $size solid transparent;
+		border-bottom: $size solid transparent;
+		border-right: $size solid $color;
+		margin-left: -$size;
+	}
+}
+
+//****************-------END SHAPES--------*****************
+
+//****************-------TEXTFIELD--------***************** //fix me - why is this not moved to textfield.scss
+@mixin textfield-style {
+	position: relative;
+	height: $space-xl;
+	margin-top: $space-xl;
+
+	@include themify {
+		border-bottom-color: themed("form-element-border");
+	}
+
+	label {
+		position: absolute;
+		left: 0;
+		top: $space-xxs;
+		margin: 0;
+		@include set-transition;
+
+		span {
+			display: block;
+			margin: 0;
+			box-sizing: border-box;
+			line-height: 1.1;
+			font-size: $text-lg;
+			font-weight: $text-regular;
+
+			@include themify {
+				color: themed("form-text-placeholder");
+			}
+		}
+	}
+
+	input,
+	input[type="email"],
+	input[type="text"],
+	input[type="password"] {
+		@include themify {
+			background-color: themed("form-element-transparent");
+			border: none;
+			color: themed("color-text");
+		}
+
+		position: absolute;
+		outline: none;
+		width: 100%;
+		max-width: 100%;
+		height: 100%;
+		left: 0;
+		bottom: 0;
+		padding-left: $space-xxs;
+		font-weight: $text-bold;
+		font-size: $text-lg;
+		box-sizing: border-box;
+		margin: 0;
+		box-shadow: none;
+	}
+
+	&:after {
+		@include set-transition(all, 0.3s);
+
+		@include themify {
+			background-color: themed("form-element-border-focus");
+		}
+
+		content: "";
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 2px;
+		left: 0;
+		bottom: -1px;
+	}
+
+	&:not(.empty),
+	&:focus-within {
+		label {
+			top: calc(-1 * $space-sm);
+
+			span {
+				padding-left: 0;
+				font-weight: $text-bold;
+				font-size: $text-md;
+				line-height: 1;
+
+				@include themify {
+					color: themed("color-text");
+				}
+			}
+		}
+	}
+
+	&:focus-within {
+		&:after {
+			width: 100%;
+		}
+
+		input,
+		input[type="email"],
+		input[type="text"],
+		input[type="password"] {
+			@include themify {
+				background-color: themed("form-element-transparent");
+			}
+
+			box-shadow: none;
+		}
+
+		label {
+			span {
+				@include themify {
+					color: themed("form-element-border-focus");
+				}
+			}
+		}
+	}
+}
+
+//****************-------END TEXTFIELD--------*****************
+
+//****************-------common layout--------*****************
+
+@mixin states {
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+	}
+}
+
+//Mixin for truncating text
+@mixin truncate {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+//Mixin for truncating more than first line of text
+@mixin truncate-more-lines($numLines: 1, $lineHeight: 1.412) {
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	text-overflow: ellipsis;
+	display: block;
+	/* autoprefixer: off */
+	display: -webkit-box;
+	-webkit-line-clamp: $numLines;
+	-webkit-box-orient: vertical;
+	max-height: $numLines * $lineHeight + unquote("em");
+}
+
+//Style only for dark theme
+@mixin theme-dark-only {
+	@at-root .theme-dark #{&} {
+		@content;
+	}
+}
+
+//Style only for one theme
+@mixin theme-only($theme: dark) {
+	@if $theme==dark {
+		@at-root .theme-dark #{&} {
+			@content;
+		}
+	} @else if $theme==light {
+		@at-root .theme-light #{&} {
+			@content;
+		}
+	}
+}
+
+@mixin text-md {
+	font-size: $text-md;
+	line-height: 1.8;
+}
+
+@mixin text-shadow {
+	text-shadow: 2px 2px 3px $grey-3;
+}

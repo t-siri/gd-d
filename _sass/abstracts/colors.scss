@@ -1,0 +1,164 @@
+/* --------------------------------
+Colours
+-------------------------------- */
+/* 
+_colors.scss is the base on setting up your colour variables in your target project
+Set your target colours but do not remove variables that you do not plan to use.
+*/
+
+/* Colour variables */
+
+$color-shades: 15%;
+$color-alpha: 0.8%;
+$color-shadow: 0.2%;
+
+/* Main colors */
+
+/* -------------------------------------------------*/
+/* ----------Pick your brand colours here ----------*/
+/* -------------------------------------------------*/
+$color-primary: rgba(39, 39, 39, 1); // #272727
+$color-secondary: rgba(105, 65, 65, 1); // ##694141
+$color-brand-01: rgba(246, 239, 219, 1);
+
+
+// Map of the colour names used above for looping purposes
+$colors: (primary: $color-primary,
+	secondary: $color-secondary,
+	brand-01: $color-brand-01,
+);
+
+// Functions to source a colours various shades and tints
+@function lighten-color($color) {
+	@return lighten($color, $color-shades);
+}
+
+@function darken-color($color) {
+	@return darken($color, $color-shades);
+}
+
+@function get-bg-color($color) {
+	@return rgba($color, $color-alpha);
+}
+
+// shades - generated using chroma.js - 12 steps https://gka.github.io/palettes/#colors=#121230,#f5f5f5%7Csteps=11%7Cbez=1%7CcoL=1
+$black: $color-primary;
+$grey-7: #313131;
+$grey-6: #494949;
+$grey-5: #696969;
+$grey-4: #aba9b5;
+$grey-3: #c3c1ca;
+$grey-2: #dcdbdf;
+$grey-1: #f5f5f5; // This is the reverse accent. Currently called "Noise"
+$white: #ffffff;
+
+// Base text colors
+// Used in the map below
+// !! never reference these variables directly !! Their primary use is in the color contrast checker functions
+$color-text-dark: $color-primary;
+$color-text-light: $white;
+
+//Colour gradients
+@mixin gradient-palette($brand-colour-1, $brand-colour-2, $deg: 90deg) {
+	background: linear-gradient(#{$deg}, $brand-colour-1, $brand-colour-2);
+	background-repeat: no-repeat;
+	color: (get-contrasting-text-color($brand-colour-1));
+
+	&.btn,
+	.btn {
+
+		&:hover,
+		&:active,
+		&:focus {
+			color: (get-contrasting-text-color($brand-colour-1));
+		}
+	}
+}
+
+@mixin main {
+	@include gradient-palette($color-primary, $color-brand-01);
+}
+
+/* ------ Start of themes -------*/
+
+/* To create a new theme, change the title of the map and add the class theme-X where X is the new theme name to the body tag
+https://medium.com/@dmitriy.borodiy/easy-color-theming-with-scss-bc38fd5734d1
+*/
+$themes: (light: (
+		/* Basics */
+		color-primary: $color-primary,
+		color-secondary: $color-secondary,
+		color-brand-01: $color-brand-01,
+		background-color: $color-brand-01,
+		sub-nav-bg: $color-brand-01,
+		/* Shadows */
+		shadow-color: rgba($black, $color-shadow),
+		responsive-state: $color-primary,
+	),
+	/*--- start of the dark theme ---*/
+	dark: (
+		/* Basics */
+		color-primary: $color-primary,
+		color-secondary: $color-secondary,
+		color-brand-01: $color-brand-01,
+		background-color: $color-primary,
+		sub-nav-bg: $color-primary,
+		/* Shadows */
+		shadow-color: rgba($black, $color-shadow),
+		responsive-state: $color-secondary,
+	),
+);
+
+// Needs to be in this file, as it is primarily used for the colors and must be
+// loaded before the variables and mixins
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+
+	@return $map;
+}
+
+// Button colours
+// Each colour has its own map, and each map should have all themes included inside it. If a new theme is added, this map will need updating
+// For each theme in each map, two colours are defined, the standard colour, and the alt colour
+//      Standard colour is the colour that it uses when it is normally active
+//      The alt colour is what the colour changes to when the button is in a state (hover, focus and active)
+// THIS MAP MUST ALWAYS HAVE A DISABLED COLOUR IN IT
+// This map is primarily used in the set-button-color-name
+$button-colors: (primary: (light: $color-primary,
+		light-alt: lighten-color($color-primary),
+		dark: $color-secondary,
+		dark-alt: darken-color($color-secondary),
+	),
+	secondary: (light: $color-secondary,
+		light-alt: darken-color($color-secondary),
+		dark: $color-primary,
+		dark-alt: lighten-color($color-primary),
+	),
+	brand-01: (light: $color-brand-01,
+		light-alt: lighten-color($color-brand-01),
+		dark: $color-brand-01,
+		dark-alt: lighten-color($color-brand-01),
+	),
+);
+
+//Gradient color list that are used in skeletons but can als obe applied in other places
+$gradient-colors: main;
+
+//Color list used in multiple loops such as cards, tooltips etc.
+$color-list: (primary: $color-primary,
+	secondary: $color-secondary,
+	brand-01: $color-brand-01,
+	grey-1: $grey-1,
+	grey-2: $grey-2,
+	grey-3: $grey-3,
+	grey-4: $grey-4,
+	grey-5: $grey-5,
+	grey-6: $grey-6,
+	grey-7: $grey-7,
+);
+
+//Gradient color assignment main color
+$gradient-color-main: (main: $color-brand-01,
+);

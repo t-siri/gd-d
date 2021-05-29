@@ -1,0 +1,55 @@
+.border-box {
+    padding: $space-lg $space-lg $space-md;
+    position: relative;
+    border: 2px solid $color-primary;
+
+    @include media(xs) {
+        padding: $space-md $space-sm;
+    }
+
+    &.no-heading {
+        padding: $space-sm $space-md;
+    }
+
+    .border-box-heading.h2 {
+        position: absolute;
+        top: -50px;
+        left: $space-sm;
+        background-color: $color-brand-01;
+
+        @include media(smd) {
+            top: -30px;
+        }
+
+        @include media(xs) {
+            top: -20px;
+        }
+    }
+    .border-box-heading.h3 {
+        position: absolute;
+        top: -20px;
+        left: $space-sm;
+        background-color: $color-brand-01;
+    }
+
+    .border-box-heading {
+        @include media(xs) {
+            span {
+                display: none;
+            }
+        }
+    }
+
+    .border-box-footer {
+        position: absolute;
+        right: $space-sm;
+        background-color: $color-brand-01;
+        bottom: -65px;
+        @include media(smd) {
+            bottom: -55px;
+        }
+        &.btn-only {
+            bottom: -30px;
+        }
+    }
+}

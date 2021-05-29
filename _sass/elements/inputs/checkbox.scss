@@ -1,0 +1,157 @@
+.input-group-wrapper__checkbox {
+	&__checkbox-header {
+		width: 100%;
+		font-weight: $text-bold;
+	}
+
+	&__checkbox-header {
+		width: 100%;
+		font-weight: $text-bold;
+	}
+}
+
+.input-group__checkbox {
+	position: relative;
+	width: min-content;
+	margin: $space-sm 0;
+	cursor: default;
+	/*This customises the grid areas for checkboxes. By default, the grid area has been set up to automatically place a label
+beside a tooltip and above an input. For checkboxes, the grid areas are re-arranged to allow these items to appear inline*/
+	grid-template-columns: max-content max-content;
+	grid-template-areas:
+		"input label"
+		"validation validation";
+
+	.input-group__checkbox-header {
+		font-weight: $text-bold;
+	}
+
+	label {
+		grid-area: label;
+		position: relative;
+		margin-left: $space-sm;
+		max-width: convert-rem(200px);
+		overflow-wrap: break-word;
+		margin-bottom: 0;
+		align-items: center;
+		display: flex;
+	}
+
+	p {
+		grid-area: validation;
+	}
+}
+
+input[type="checkbox"] {
+	//Removing the default styles, with it you can only control the border style, without it you can control width, height etc.
+	appearance: none;
+	width: 1.8rem;
+	min-width: 1.8rem;
+	height: 1.8rem;
+	border: convert-rem(3px) solid $color-primary;
+	vertical-align: middle;
+	cursor: pointer;
+	outline: none;
+	padding: 0;
+	grid-area: input;
+	margin: 0;
+
+
+	&:checked {
+		@include icon(after, check);
+
+		&:after {
+			@include themify {
+				background-color: get-contrasting-text-color(themed('background-color'));
+			}
+
+			width: .9rem;
+			height: .9rem;
+			margin: .25rem;
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+/*THESE ARE COMMENTED OUT AS NOT USED ON SITE - yet */
+// input[type="checkbox"][readonly]+label,
+// input[type="checkbox"][disabled]+label {
+// 	background-color: transparent;
+
+// 	&:hover,
+// 	&:focus,
+// 	&:active {
+// 		border: none;
+// 	}
+// }
+
+// input[type="checkbox"][disabled] {
+// 	background-color: $grey-2;
+// 	border: convert-rem(3px) solid $grey-4;
+// 	cursor: not-allowed;
+
+
+// 	&:hover {
+// 		border: convert-rem(3px) solid $grey-4;
+// 	}
+
+// 	&:checked {
+// 		@include icon(after, check);
+
+// 		&:after {
+// 			opacity: .5;
+// 		}
+// 	}
+// }
+
+//Checkbox buttons
+.checkbox-btn {
+	min-width: unset;
+	margin: 0 $space-xxs;
+
+	input[type="checkbox"] {
+		position: absolute;
+		@include transform-timing($quick-animation-time);
+		width: fit-content;
+		left: 0;
+		height: 100%;
+		opacity: 0;
+		z-index: 2;
+
+		&:after {
+			opacity: 0;
+			content: attr(name);
+			display: inline-block;
+			color: black;
+			width: fit-content;
+			font-size: 2rem;
+		}
+
+		&:hover {
+			+label {
+				@include transform-timing($quick-animation-time);
+				background-color: transparentize($color-standard-green, 0.2);
+				border-color: $color-standard-green;
+			}
+		}
+	}
+
+	label {
+		margin: 0;
+		border: convert-rem(2px) solid;
+		padding: $space-xxs $space-xs;
+		border-radius: $space-sm;
+
+		@include themify {
+			border-color: get-contrasting-text-color(themed('background-color'));
+		}
+	}
+
+	input[type="checkbox"]:checked+label {
+		@include transform-timing($quick-animation-time);
+		background-color: $color-standard-green;
+	}
+
+}

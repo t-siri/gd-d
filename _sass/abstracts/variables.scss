@@ -1,0 +1,56 @@
+//****************-------BREAKPOINTS--------****************
+// Variable Map for break points
+$breakpoints: (
+	xxs: 320px,
+	xs: 380px,
+	xsm: 640px,
+	sm: 750px,
+	smd: 950px,
+	md: 1100px,
+	lg: 1250px,
+	lgx: 1400px,
+	xl: 1600px,
+	xxl: 1920px,
+);
+
+//****************-------END BREAKPOINTS--------****************
+
+//****************------- Z-INDEX--------****************
+//Called by using z-index: map-get($z-index, {name} );
+$z-index: (
+		base:1,
+		1: 100, // The base level
+		2: 200, 
+		3: 300,
+		4: 400, 
+		5: 500, // Chat and menu goes here
+		6: 600, // for modals
+		7: 700,
+		8: 800, // for help
+		9: 900 // Break glass if using 9
+);
+
+$z-index-base: map-get($z-index, base);
+$z-index-general: map-get($z-index, 1);
+$z-index-sidebar: map-get($z-index, 3);
+$z-index-modal: map-get($z-index, 5);
+
+//****************-------END Z-INDEX--------****************
+
+
+//****************-------Common variables--------****************
+$btn-radius: 50;
+$radius: 0;
+$btn-border-width: 2px;
+$standard-border-width: 2px;
+//used on divs for rounded corners
+$soft-border: 8px;
+//****************-------ENDCommon variables--------****************
+
+
+//****************-------Layout spacing--------****************
+$sm-section-padding: 2rem 3rem;
+
+$sm-responsive-padding: 6rem 3rem 3rem;
+$md-responsive-padding-top-x: 8rem 3rem;
+//****************-------END Layout spacing--------****************

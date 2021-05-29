@@ -1,0 +1,33 @@
+/* --------------------------------
+Textareas
+-------------------------------- */
+/*
+Textareas currently have fixed widths - these are changeable
+*/
+
+&.input-group__textarea {
+	width: 100%;
+	@include media(xs, sm, md) {
+		width: auto;
+	}
+
+	&.input-group--static {
+		pointer-events: unset;
+	}
+
+	textarea {
+		white-space: pre-wrap;
+		width: auto;
+		max-width: 100%;
+		overflow-y: auto;
+		line-height: 1.5;
+		padding: $space-sm;
+		&.input-static {
+			border: none;
+		}
+	}
+
+	.tooltip {
+		left: convert-rem(488px);
+	}
+}

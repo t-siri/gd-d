@@ -1,0 +1,87 @@
+// .work-view-page {
+//     .header {
+//         display: flex;
+//         justify-content: space-between;
+//         margin-bottom: $space-lg;
+//         opacity: 0;
+//         animation-fill-mode: forwards;
+//         @include fadeInDown(2s);
+
+//         @include media(smd) {
+//             flex-direction: column;
+//             margin-bottom: $space-md;
+//             .btn {
+//                 margin-bottom: $space-md;
+//             }
+//         }
+//         @include media(smd) {
+//             margin-bottom: 0;
+//         }
+//     }
+//     .work-view__content-wrapper {
+//         display: flex;
+//         align-items: center;
+//         margin-bottom: $space-xxxxl;
+
+//         &.scroll-animation-true {
+//             .img-wrapper {
+//                 animation-fill-mode: forwards;
+//                 @include fadeInLeft(2s);
+//             }
+//             .border-box {
+//                 animation-fill-mode: forwards;
+//                 @include fadeInRight(2s);
+//             }
+//         }
+
+//         @include media(smd) {
+//             flex-direction: column;
+//             margin-bottom: $space-lg;
+//         }
+
+//         &:last-of-type {
+//             margin-bottom: $space-md;
+//         }
+
+//         .img-wrapper {
+//             opacity: 0;
+//             .img-zoom {
+//             }
+//             img {
+//                 width: 50vw;
+//                 &:last-of-type {
+//                     margin-top: $space-md;
+//                 }
+
+//                 @include media(smd) {
+//                     width: 100%;
+//                     margin: $space-sm auto;
+//                 }
+//                 @include media(smd) {
+//                     margin: $space-xs auto;
+//                 }
+//             }
+
+//             // .icon-look {
+//             //     padding: .4rem;
+//             //     &:before {
+//             //         vertical-align: middle;
+//             //         height: $text-md;
+//             //         width: $text-md;
+//             //     }
+//             // }
+//         }
+//         .border-box {
+//             opacity: 0;
+//             margin: 0 0 0 $space-lg;
+//             padding: $space-md;
+
+//             @include media(smd) {
+//                 margin: $space-xxl 0 $space-lg;
+//             }
+//             @include media(xs) {
+//                 margin: $space-xl 0 $space-xs;
+//             }
+//         }
+//     }
+// }

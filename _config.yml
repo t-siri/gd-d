@@ -1,0 +1,16 @@
+title: Dsignkul
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://designkul.netlify.app"
+incremental: false
+destination: _site
+
+plugins:
+  - jekyll-feed
+
+include: ['_pages']
+
+defaults:
+  - scope:
+      path: "assets/img"
+    values:
+      image: true

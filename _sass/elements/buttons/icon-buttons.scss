@@ -1,0 +1,37 @@
+
+/* Icon only buttons */
+
+$icon-buttons: icon-only, icon-only-sm, btn-icon-only;
+
+@mixin icon-buttons($btn-type) {
+	@if $btn-type==icon-only {
+		@include icon-only;
+	}
+
+	@else if $btn-type==icon-only-sm {
+		@include icon-only;
+		padding: $space-xxs;
+	}
+
+	@else if $btn-type==btn-icon-only {
+		font-size: 0;
+		padding: $space-xs;
+
+		&:before,
+		&:after {
+			font-size: $btn-font-size;
+			margin-right: 0;
+			vertical-align: middle;
+		}
+	}
+
+	@else {
+		@error "This mixin supports specific icon buttons you used "+$btn-type;
+	}
+}
+
+@each $button-type in $icon-buttons {
+	.#{$button-type} {
+		@include icon-buttons(#{$button-type});
+	}
+}

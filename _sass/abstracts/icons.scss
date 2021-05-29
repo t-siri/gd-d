@@ -1,0 +1,142 @@
+/* --------------------------------
+Icons
+These are the lightning icon variables list
+https://medium.com/codyhouse/create-your-design-system-part-5-icons-594f39cfb1b
+-------------------------------- */
+
+/* TO use an icon icon($position: before, $icon: false, $styles: true) */
+/*https://jaydenseric.com/blog/fun-with-sass-and-font-icons*/
+
+/* Icons are currently using SVGS in the icon/ folder. To add an icon, you have to add the SVG in the folder, and then the svg name into the list
+below ($icons:). */
+$icons: look,
+chevron-left,
+chevron-right,
+chevron-up,
+chevron-down,
+arrow-up,
+arrow-down,
+arrow-left,
+arrow-right,
+entity,
+file,
+check,
+check-circle-2,
+play-circle,
+refresh-cw,
+pause-circle,
+search,
+x,
+a-underline;
+
+@each $icon in $icons {
+	.icon-#{$icon} {
+		display: flex;
+		align-items: center;
+
+		&:before,
+		&:after {
+			@include themify {
+				background-color: get-contrasting-text-color(themed('background-color'));
+			}
+
+
+			@each $color-class,
+			$color in $color-list {
+				&.color--#{$color-class} {
+					background-color: $color;
+				}
+			}
+		}
+
+		//Left and top icons should be before classes
+		&.icon-top,
+		&.icon-left {
+			&:before {
+				-webkit-mask: url(/assets/icon/#{$icon}.svg);
+				mask: url(/assets/icon/#{$icon}.svg);
+				-webkit-mask-size: cover;
+				mask-size: cover;
+				height: convert-rem(16px);
+				width: convert-rem(16px);
+				display: inline-block;
+				content: '';
+
+			}
+
+			&:after {
+				display: none;
+			}
+		}
+
+		&.icon-left {
+			&:before {
+				margin-right: $space-sm;
+			}
+		}
+
+		&.icon-top {
+			display: block;
+
+			&:before {
+				display: block;
+				margin-bottom: $space-xs;
+			}
+		}
+
+		//Right and bottom icons should be after classes
+		&.icon-bottom,
+		&.icon-right {
+			&:before {
+				display: none;
+			}
+
+			&:after {
+				-webkit-mask: url(/assets/icon/#{$icon}.svg);
+				mask: url(/assets/icon/#{$icon}.svg);
+				-webkit-mask-size: cover;
+				mask-size: cover;
+				height: convert-rem(16px);
+				width: convert-rem(16px);
+				display: inline-block;
+				content: '';
+			}
+		}
+
+		&.icon-right {
+			&:after {
+				margin-left: $space-sm;
+			}
+		}
+
+		&.icon-bottom {
+			display: block;
+
+			&:after {
+				display: block;
+				margin-top: $space-xs;
+			}
+		}
+
+		&.icon-only {
+			display: block;
+
+			&:before {
+				display: block;
+				margin: $space-xxs;
+				-webkit-mask: url(/assets/icon/#{$icon}.svg);
+				mask: url(/assets/icon/#{$icon}.svg);
+				-webkit-mask-size: cover;
+				mask-size: cover;
+				height: convert-rem(16px);
+				width: convert-rem(16px);
+				display: inline-block;
+				content: '';
+			}
+
+			&:after {
+				display: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,102 @@
+/*
+Types: Text, solid or outline
+Colours: Primary, Secondary, Subtle or Accent
+Size: Inline, Standard and Massive
+States: Disabled, Hover, Focus and Active
+Additions: Button groups and icons
+*/
+
+$all-button-selectors: '.btn, button, .button, [type="button"], [role="button"]';
+
+:root {
+	--btn-border-width: #{$standard-border-width};
+}
+
+@import "button-colors.scss";
+
+@import "button-size.scss";
+
+// --------------------------------------
+// ---------- DISABLED BUTTONS ----------
+// --------------------------------------
+a {
+	&:hover,
+	&:active,
+	&:focus {
+		@include transform-timing($animation-time);
+	}
+
+	&:visited {
+		color: $color-primary;
+	}
+}
+
+#{$all-button-selectors} {
+	&:focus {
+		outline: none;
+	}
+}
+
+// --------------------------------------
+// ---------- STANDARD BUTTONS ----------
+// --------------------------------------
+
+@mixin standard-button {
+	@include set-button-size;
+	// Text sizes and line height are set in the set-button-size mixin
+	font-family: $body-font-family;
+	font-weight: $text-regular;
+	white-space: nowrap;
+	text-decoration: none;
+	text-align: center;
+	cursor: pointer;
+	@include fontSmooth;
+	@include set-transition;
+	border-width: $btn-border-width;
+	border-style: solid;
+	grid-template-areas: "text arrow";
+	@include shadow-box(subtle);
+	&.icon-only {
+		width: 65px;
+		height: 65px;
+	}
+}
+
+#{$all-button-selectors} {
+	@include standard-button;
+}
+
+a#{$all-button-selectors} {
+	display: inline-block;
+}
+
+// --------------------------------------
+// ---------- RESPONSIVE ----------
+// --------------------------------------
+
+//Making standard buttons to icon button at specific breakpoint for smaller device to save space
+@mixin responsive-button($breakpoint, $size: $btn-font-size) {
+	@include breakpoint($breakpoint) {
+		font-size: 0;
+		padding: $space-xs;
+
+		&:before,
+		&:after {
+			margin: 0;
+			vertical-align: middle;
+			font-size: $size;
+		}
+	}
+}
+
+//Assigning classname - Standard button will be an icon button at breakpoint depends on class name
+//i.e. - .btn-icon-responsive-sm : will be icon button at breakpoint sm
+$btn-brerakpoints: xs, xsm, sm, md, lg, xl;
+
+@each $breakpoint in $btn-brerakpoints {
+	.btn-icon-responsive-#{$breakpoint} {
+		@include responsive-button(#{$breakpoint});
+	}
+}
+
+@import "icon-buttons.scss";

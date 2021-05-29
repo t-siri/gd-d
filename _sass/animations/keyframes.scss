@@ -1,0 +1,471 @@
+/* KEY FRAMES
+Here are the keyframes, to organise wehre keyframes go. it is ideal to use mixins to call your motions and animations */
+//Bounce
+@keyframes bounce-down-tiny {
+	0%,
+	20%,
+	100% {
+		transform: translate(0, -0.063em);
+	}
+
+	10% {
+		transform: translate(0, 0.188em);
+	}
+}
+
+@keyframes bounce-x-tiny {
+	0%,
+	20%,
+	100% {
+		transform: translate(0.063em, 0);
+	}
+
+	10% {
+		transform: translate(0.188em, 0);
+	}
+}
+
+//Fades
+
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+@keyframes fadeInLeft {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+@keyframes fadeInDown {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+
+@keyframes fadeInRight {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+//Gradient
+@keyframes slideGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 51%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-moz-keyframes slideGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 51%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-webkit-keyframes slideGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 51%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-ms-keyframes slideGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 51%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-o-keyframes slideGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 51%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+//slides
+@-webkit-keyframes slideInRight {
+	from {
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@-webkit-keyframes slideInDown {
+	from {
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slideInDown {
+	from {
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@-webkit-keyframes slideOutUp {
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+	}
+}
+
+@keyframes slideOutUp {
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+	}
+}
+
+@-webkit-keyframes slideOutRight {
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+@keyframes slideOutRight {
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+@-webkit-keyframes slideInUp {
+	from {
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slideInUp {
+	from {
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@-webkit-keyframes slideInLeft {
+	from {
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		visibility: visible;
+	}
+
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+//floating - used for planets
+@keyframes motionFloatingY {
+	0% {
+		transform: translatey(0px);
+	}
+
+	50% {
+		transform: translatey(-10px);
+	}
+
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+@keyframes motionFloatingX {
+	0% {
+		transform: translatex(0px);
+	}
+
+	50% {
+		transform: translatex(-10px);
+	}
+
+	100% {
+		transform: translatex(0px);
+	}
+}
+
+//move carousal vid
+@keyframes moveAnim {
+	from {
+		flex: none;
+	}
+
+	to {
+		flex: 1;
+	}
+}
+@keyframes moveAnimRev {
+	from {
+		flex: 1;
+	}
+
+	to {
+		flex: none;
+	}
+}
+
+@keyframes keyframesthe {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 100%;
+	}
+}
+@keyframes keyframesmeets {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 100%;
+	}
+}
+@keyframes keyframesmind {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+/* The typing effect */
+@keyframes typing {
+	from {
+		width: 0;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+	to {
+		width: 85%;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+}
+@-webkit-keyframes typing {
+	from {
+		width: 0;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+		-webkit-border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+	to {
+		width: 85%;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+		-webkit-border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+}
+@keyframes typingxs {
+	from {
+		width: 0;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+	to {
+		width: 84%;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+}
+@-webkit-keyframes typingxs {
+	from {
+		width: 0;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+		-webkit-border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+	to {
+		width: 84%;
+		border-right: 3px solid $color-primary; /* The typwriter cursor */
+		-webkit-border-right: 3px solid $color-primary; /* The typwriter cursor */
+	}
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: $color-primary;
+	}
+}
+
+@keyframes design-other-letters {
+	0% {
+		stroke-dashoffset: 2600;
+	}
+
+	100% {
+		stroke-dashoffset: 0;
+	}
+}

@@ -1,0 +1,7 @@
+//Set aniamtion time variables
+
+$slow-animation-time: 1.5s;
+$animation-time: 1s;
+$quick-animation-time: .25s;
+
+@import 'keyframes.scss', 'animations.scss';

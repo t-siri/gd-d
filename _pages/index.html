@@ -1,0 +1,171 @@
+---
+permalink: /
+title: Home
+---
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+
+<head>
+	{% include common/head.html %}
+</head>
+
+<body class="home-page">
+	{% include common/navigation.html %}
+
+	<main class="content">
+		<img class="left-leaf-img" src="/assets/img/left-long-leaf.svg">
+		<img class="right-leaf-img"  src="/assets/img/right-long-leaf.svg">
+		<h1 class="hidden">Gympie website design and development</h1>
+		
+		
+		<div class="page-section home"  id="home">
+			<p class="h1">Gympie Design <br>
+				& Development</p>
+
+			<p class="text-smd">
+				A passionate team locally based, providing professional business advice in design and development.
+			</p>
+			<p class="text-smd">
+				A UX Engineer working alongside a Full Stack Developer, creating unique and polished work for clients in Gympie. 
+			</p>
+			<p class="text-smd">
+				Services include web, application, and mobile design alongside front-end, back-end development, site deployment and management. 
+			</p>
+		</div>
+
+		<div class="page-section about"  id="about">
+			<img class="page-section__eucalyptus-right" src="/assets/img/small-eucalyptus.svg">
+			<img class="page-section__eucalyptus-left" src="/assets/img/small-eucalyptus-rotated.svg">
+			<div class="section-title">
+				<p class="h3">About</p>
+			</div>
+
+			<p>Locally based, our company provides modern design solutions to your business as well as development. </p>
+			<p>Our team consists of two talented individuals, a UX Engineer (Designer and Front-end developer) and a full-stack developer. We care about our local business in Gympie and want to provide the best services we can in order for your business to grow and keep up to date with modern technology.  </p>
+			<p>Given our passion, we value our customers and provide honest and trustworthy solutions. </p>
+		</div>
+		
+		<div class="page-section team" id="team">
+			<img class="page-section__eucalyptus-right" src="/assets/img/small-eucalyptus.svg">
+			<img class="page-section__eucalyptus-left" src="/assets/img/small-eucalyptus-rotated.svg">
+			<div class="section-title">
+				<p class="h3">Who we are</p>
+			</div>
+
+			<div class="team-member">
+				<div class="avatar">
+					<p class="h4 heading-font">The Developer</p>
+					<div class="avatar-img">
+						<img src="/assets/img/tom-headshot.jpg">
+					</div>
+				</div>
+				<div class="member-desc">
+					<p>Thomas Williams has an Honours degree in Electrical and Aerospace engineering. He’s highly talented in connecting the dots and writing clean code, bringing everything together. </p>
+					<p>He has experience in multiple development languages such as C#, React, Java and PHP. Given his experience, he can quickly adapt and learn new languages.</p>
+				</div>
+			</div>
+			<div class="team-member">
+				<div class="avatar">
+					<p class="h4 heading-font">The Designer</p>
+					<div class="avatar-img">
+						<img src="/assets/img/toy-headshot.jpg">
+					</div>
+				</div>
+				<div class="member-desc">
+					<p>Graduated in Bachelor of Multimedia Design, Toy Sirichindakul provides user experience and user interface solutions to complex business problems that require a longer scope process.</p>
+					<p>She has experience in web design, web application design, mobile design and front-end development. </p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="page-section services" id="services">
+			<img class="page-section__eucalyptus-right" src="/assets/img/small-eucalyptus.svg">
+			<img class="page-section__eucalyptus-left" src="/assets/img/small-eucalyptus-rotated.svg">
+			<div class="section-title">
+				<div>
+					<p class="h3">Services</p>
+				</div>
+			</div>
+			
+			<p>
+				We charge the project as a whole, prices vary depending on the scope and the size of the project. The following list below explains further on the services we provide. If you have any further questions, feel free to <a href="#contact">contact us!</a>
+			</p>
+
+			<div class="services-list">
+				<div class="service">
+					<h4>Web design</h4>
+					<p>
+						We design simple websites such as simple marketing websites.
+					</p>
+				</div>
+				<div class="service">
+					<h4>Application design</h4>
+					<p>
+						For more complex business, we provide application design that involves more steps.
+					</p>
+				</div>
+				<div class="service">
+					<h4>User research</h4>
+					<p>
+						Our team conducts user research into further understanding your businesses pain points.
+					</p>
+				</div>
+				<div class="service">
+					<h4>Web development & hosting</h4>
+					<p>
+						Our team provides standardised development and also hosting, so you can sit back, relax and watch your site go live!
+					</p>
+				</div>
+				<div class="service">
+					<h4>Application development</h4>
+					<p>
+						Our highly skilled developer provides application development to design solutions that are more complex than a static website.
+					</p>
+				</div>
+				<div class="service">
+					<h4>Application deployment</h4>
+					<p>
+						Alongside application development, Tom also deploys the application for you without you having to worry about the fuss.
+					</p>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="page-section contact" id="contact-form">
+			<img class="left-leaf-img" src="/assets/img/left-long-leaf.svg">
+			<img class="right-leaf-img"  src="/assets/img/right-long-leaf.svg">
+			<p class="h3">Contact us</p>
+			<form class="form" name="contact" netlify method="POST" data-netlify="true">
+				<div class="input-group input-group--text">
+					<label for='email'>
+						<span>Name</span>
+						<input id="email" type="email" name="email" placeholder="Valid Email Address" />
+					</label>
+				</div>
+				<div class="input-group input-group--text">
+					<label for='email'>
+						<span>Email or contact number (your preference on contact source)</span>
+						<input id="name" type="text" name="email" placeholder="Your preference on how you want to be contacted" />
+					</label>
+				</div>
+				<div class="input-group input-group--textarea">
+					<label for='message'>
+						<span>Enquiry</span>
+						<textarea id="message" name="message" placeholder="Your Message"></textarea>
+					</label>
+				</div>
+
+				<button class="btn btn--solid btn--secondary show-text icon-right icon-arrow-right" id="form-submit"
+					type="submit"> Send</button>
+			</form>
+			<div class="submit-message">
+				<h4>Thanks for messaging us! We'll get back to you as soon as we can.</h4>
+			</div>
+		</div>
+	</main>
+</body>
+{% include common/footer.html %}
+
+</html>

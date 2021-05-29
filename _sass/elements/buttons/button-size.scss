@@ -1,0 +1,106 @@
+// ---------------------------------- 
+// ---------- BUTTON SIZES ----------
+// ----------------------------------
+
+// Set button font size
+//      Sets the text size for the button and all elements inside of it (to account for spans, befores etc.)
+@mixin set-button-font-size($size) {
+
+	&,
+	* {
+		font-size: $size;
+		line-height: $size;
+	}
+}
+
+// Set button size
+// Sets the padding and font of the button to make it the correct size. Doesn't affect width or height directly.
+// Inline buttons should never be shown with an icon
+@mixin set-button-size($size: standard) {
+	@if $size==standard {
+		padding: $space-xs;
+		@include set-button-font-size($btn-font-size);
+	}
+
+	@else if $size==medium {
+		padding: $space-sm $space-md;
+		@include set-button-font-size($btn-font-size);
+	}
+
+	@else if $size==inline {
+		padding: $space-xxs $space-xs; // No Icons!
+		@include set-button-font-size($btn-font-size);
+	}
+
+	@else if $size==massive {
+		padding: $space-md $space-lg;
+		@include set-button-font-size(calc(#{$btn-font-size} * 1.2));
+	}
+
+	@else {
+		@error "This mixin only supports standard, inline or massive for the size variable";
+	}
+}
+
+
+#{$all-button-selectors} {
+
+	&.btn--inline,
+	.btn--sm {
+		@include set-button-size(inline);
+
+		&:before,
+		&:after {
+			height: $text-sm;
+			width: $text-sm;
+		}
+	}
+
+	&.btn--standard,
+	.btn {
+		@include set-button-size(standard);
+	}
+
+	&.btn--medium,
+	.btn--md {
+		@include set-button-size(medium);
+
+		&:before,
+		&:after {
+			height: $text-md;
+			width: $text-md;
+		}
+	}
+
+	&.btn--massive,
+	&.btn--lg {
+		@include set-button-size(massive);
+
+		&:before,
+		&:after {
+			height: $text-lg;
+			width: $text-lg;
+		}
+	}
+
+	&.btn--xl {
+		@include set-button-size(massive);
+
+		&:before,
+		&:after {
+			height: $text-xl;
+			width: $text-xl;
+		}
+	}
+
+	&.btn--xlg {
+		@include set-button-size(massive);
+		font-size: $text-xxl;
+
+		&:before,
+		&:after {
+			height: $text-xxl;
+			width: $text-xxl;
+		}
+	}
+}

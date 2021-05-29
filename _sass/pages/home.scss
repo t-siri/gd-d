@@ -1,0 +1,270 @@
+/* Home page */
+.home-page {
+    .content {
+        padding: $space-xxxxl $space-xxl;
+        position: relative;
+
+        @include media(md) {
+            padding: $space-md;
+        }
+
+        .left-leaf-img,
+        .right-leaf-img {
+            position: absolute;
+            top: 20vh;
+            height: 75vh;
+            width: auto;
+            z-index: -1;
+            @include media(md) {
+                height: 45vh;
+            }
+        }
+
+        .left-leaf-img {
+            left: -2vw;
+            transform: rotate(20deg);
+            @include media(md) {
+                left: -20vw;
+                top: -15vh;
+            }
+            @include media(xsm) {
+                left: -50vw;
+                transform: rotate(10deg);
+                top: -15vh;
+            }
+        }
+
+        .right-leaf-img {
+            right: 3vw;
+            @include media(md) {
+                right: -13vw;
+                top: 25vh;
+            }
+            @include media(xsm) {
+                top: 35vh;
+                right: -23vw;
+            }
+        }
+
+        .page-section {
+            width: 47vw;
+            display: flex;
+            flex-direction: column;
+            margin: $space-sm auto;
+            min-height: 100vh;
+            position: relative;
+            justify-content: center;
+
+            &__eucalyptus-right,
+            &__eucalyptus-left {
+                width: 560px;
+                transform: rotate(-490deg);
+                position: absolute;
+            }
+
+            @include media(md) {
+                width: 75vw;
+                min-height: unset;
+                margin: $space-xxxl auto;
+
+                &:first-of-type {
+                    min-height: 100vh;
+                    margin: auto;
+                }
+                &.about .page-section__eucalyptus-left {
+                    transform: rotate(160deg);
+                }
+
+                &.team .page-section__eucalyptus-left {
+                    transform: rotate(360deg);
+                }
+
+                &.services .page-section__eucalyptus-left {
+                    display: none;
+                }
+            }
+            &__eucalyptus-right {
+                right: -40vw;
+                top: 8vh;
+                @include media(md) {
+                    display: none;
+                }
+            }
+
+            &__eucalyptus-left {
+                left: -40vw;
+                top: 25vh;
+
+                @include media(md) {
+                    display: none;
+                }
+            }
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: $space-sm;
+        }
+
+        .h1 {
+            text-align: center;
+            margin-bottom: $space-lg;
+        }
+
+        //individual sections
+
+        .team {
+            .section-title {
+                .h3 {
+                    @include media(md) {
+                        display: none;
+                    }
+                }
+            }
+            .team-member {
+                display: flex;
+                align-items: center;
+                margin-bottom: $space-md;
+
+                @include media(md) {
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+
+            .h4 {
+                text-align: center;
+                margin-bottom: $space-sm;
+            }
+
+            .avatar {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: $space-sm $space-lg $space-sm 0;
+                @include media(md) {
+                    margin: 0 auto;
+                    flex-direction: column-reverse;
+
+                    .heading-font {
+                        margin-top: $space-sm;
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .member-desc {
+                margin-top: $space-md;
+            }
+
+            .avatar-img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                @include shadow-box(subtle);
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .services {
+            &-list {
+                margin-top: $space-md;
+                display: grid;
+                justify-content: space-between;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 1fr);
+
+                @include media(md) {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto;
+                }
+
+                h4 {
+                    font-size: 22px;
+                }
+
+                .service {
+                    width: 90%;
+                    &:nth-of-type(even) {
+                        margin-left: auto;
+                        @include media(md) {
+                            margin: $space-sm 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .contact {
+            .h3 {
+                text-align: center;
+                margin-bottom: $space-md;
+            }
+            .left-leaf-img {
+                left: -30vw;
+                top: 5vh;
+
+                @include media(md) {
+                    top: 55vh;
+                }
+            }
+            .right-leaf-img {
+                right: -25vw;
+                top: -10vh;
+
+                @include media(md) {
+                    top: -12vh;
+                }
+            }
+
+            input,
+            textarea {
+                background-color: $color-brand-01;
+            }
+
+            .input-group {
+                margin-bottom: $space-xs;
+            }
+
+            .btn {
+                margin-left: auto;
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+#contact-form {
+    .submit-message {
+        opacity: 0;
+        height: 0;
+        h2 {
+            height: 0;
+        }
+    }
+    .form {
+        opacity: 1;
+        height: max-content;
+    }
+    &.submitted {
+        .submit-message {
+            opacity: 1;
+            height: max-content;
+            h2 {
+                height: max-content;
+            }
+        }
+        .form {
+            opacity: 0;
+            height: 0;
+        }
+    }
+}

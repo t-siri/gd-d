@@ -1,0 +1,171 @@
+$easing-productive: cubic-bezier(0.000, 0.000, 0.440, 0.960);
+$easing-expressive: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+$easing-entrance-productive: cubic-bezier(0.000, 0.000, 0.270, 0.960);
+$easing-entrance-expressive: cubic-bezier(0.050, 0.025, 0.260, 0.960);
+$easing-exit-productive: cubic-bezier(0.200, 0.000, 1.000, 0.850);
+$easing-exit-expressive: cubic-bezier(0.100, 0.015, 0.850, 0.100);
+
+@mixin set-transition($property: all, $duration: .2s, $type: productive, $delay: 0s) {
+	@if $type==productive {
+		transition: $property $duration #{$easing-productive} $delay;
+	}
+
+	@else if $type==expressive {
+		transition: $property $duration #{$easing-expressive} $delay;
+	}
+
+	@else if $type==entrance-productive {
+		transition: $property $duration #{$easing-entrance-productive} $delay;
+	}
+
+	@else if $type==entrance-expressive {
+		transition: $property $duration #{$easing-entrance-expressive} $delay;
+	}
+
+	@else if $type==exit-productive {
+		transition: $property $duration #{$easing-exit-productive} $delay;
+	}
+
+	@else if $type==exit-expressive {
+		transition: $property $duration #{$easing-exit-expressive} $delay;
+	}
+
+	@else if $type==linear {
+		//for smooth animation wihtout pause
+		transition: $property $duration linear $delay;
+	}
+}
+
+@mixin set-animation($animation-name, $duration: .2s, $type: productive, $delay: 0s) {
+	@if $type==productive {
+		animation: $animation-name $duration #{$easing-productive} $delay;
+	}
+
+	@else if $type==expressive {
+		animation: $animation-name $duration #{$easing-expressive} $delay;
+	}
+
+	@else if $type==entrance-productive {
+		animation: $animation-name $duration #{$easing-entrance-productive} $delay;
+	}
+
+	@else if $type==entrance-expressive {
+		animation: $animation-name $duration #{$easing-entrance-expressive} $delay;
+	}
+
+	@else if $type==exit-productive {
+		animation: $animation-name $duration #{$easing-exit-productive} $delay;
+	}
+
+	@else if $type==exit-expressive {
+		animation: $animation-name $duration #{$easing-exit-expressive} $delay;
+	}
+
+	@else if $type==linear {
+		//for smooth animation wihtout pause
+		animation: $animation-name $duration linear $delay;
+	}
+
+	//Add these seperately if you need
+	//animation-direction: normal, alternate
+	//animation-iteration-count: number(1 - default), infinite, initial, inherit
+	//animation-fill-mode: forwards, backwards, both, none 
+}
+
+//cubic beier for elements ease in
+@mixin cubic-bezier-ease-in ($item: all, $duration: .3s) {
+	-webkit-transition: $item $duration cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-moz-transition: $item $duration cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-o-transition: $item $duration cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	transition: $item $duration cubic-bezier(0.550, 0.085, 0.680, 0.530);
+}
+//Transform timing for generic hovers
+@mixin transform-timing($duration: ease) {
+	-webkit-transition: all $duration ease;
+	-moz-transition: all $duration ease;
+	-o-transition: all $duration ease;
+	-ms-transition: all $duration ease;
+	transition: all $duration ease;
+}
+
+//Bounce animation
+@mixin motion-selected-bounce($duration: 1.4s, $delay: .2s) {
+	@include set-animation(bounce-down-tiny, $duration, productive, $delay);
+	animation-iteration-count: infinite;
+}
+
+@mixin motion-selected-bounce-x($duration: 1.4s, $delay: .2s) {
+	@include set-animation(bounce-x-tiny, $duration, productive, $delay);
+	animation-iteration-count: infinite;
+}
+
+//slides
+@mixin slideInDown($duration:linear) {
+	-webkit-animation-name: slideInDown;
+	animation-name: slideInDown;
+	animation-duration: $duration;
+}
+
+@mixin slideOutUp($duration:linear) {
+	-webkit-animation-name: slideOutUp;
+	animation-name: slideOutUp;
+	animation-duration: $duration;
+}
+
+@mixin slideInUp($duration:linear) {
+	-webkit-animation-name: slideInUp;
+	animation-name: slideInUp;
+	animation-duration: $duration;
+}
+
+@mixin slideInRight($duration:linear) {
+	-webkit-animation-name: slideInRight;
+	animation-name: slideInRight;
+	animation-duration: $duration;
+}
+@mixin slideOutRight($duration:linear) {
+	-webkit-animation-name: slideOutRight;
+	animation-name: slideOutRight;
+	animation-duration: $duration;
+}
+
+@mixin slideInLeft($duration:linear) {
+	-webkit-animation-name: slideInLeft;
+	animation-name: slideInLeft;
+	animation-duration: $duration;
+}
+
+@mixin motionFloatingY {
+	animation: motionFloatingY 6s ease-in-out infinite;
+}
+
+@mixin motionFloatingX {
+	animation: motionFloatingX 6s ease-in-out infinite;
+}
+
+
+@mixin fadeIn($duration:linear) {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+	animation-duration: $duration;
+}
+@mixin fadeInRight($duration:linear) {
+	-webkit-animation-name: fadeInRight;
+	animation-name: fadeInRight;
+	animation-duration: $duration;
+}
+@mixin fadeInUp($duration:linear) {
+	-webkit-animation-name: fadeInUp;
+	animation-name: fadeInUp;
+	animation-duration: $duration;
+}
+@mixin fadeInLeft($duration:linear) {
+	-webkit-animation-name: fadeInLeft;
+	animation-name: fadeInLeft;
+	animation-duration: $duration;
+}
+@mixin fadeInDown($duration:linear) {
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+	animation-duration: $duration;
+}

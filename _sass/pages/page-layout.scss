@@ -1,0 +1,10 @@
+main.content {
+    padding: 8rem $space-xl;
+
+    @include media(md) {
+        padding: $space-xxxl $space-lg;
+    }
+    @include media(xsm) {
+        padding: $space-xl $space-lg;
+    }
+}

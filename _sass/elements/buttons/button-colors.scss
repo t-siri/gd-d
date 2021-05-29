@@ -1,0 +1,176 @@
+
+// ------------------------------------ 
+// ---------- BUTTON COLOURS ----------
+// ------------------------------------
+
+// Set button text color
+// Sets the text colour for the button and all elements inside of it (to account for spans, befores etc.)
+@mixin set-button-text-color($color) {
+
+	&,
+	*{
+		// :visited is to override the colouring of the button if it is an a tag which has been clicked on
+		color: $color;
+	}
+
+	&:before, &:after {
+		background-color: $color;
+	}
+}
+
+// Set button hover colour
+// Type and force options are same as defined in the set-button-color mixin,
+@mixin set-button-hover-color($color, $type: solid, $force: false) {
+	@include states {
+		@if ($force !=force and $force !=false) {
+			@error "This mixin supports force or false as a force option";
+		}
+
+		@if $type==text {
+			@include set-button-text-color($color);
+
+			@if $force==force {
+				background-color: transparent;
+				border-color: transparent;
+			}
+		}
+
+		// Outline buttons
+		@else if $type==outline {
+			border-color: $color;
+			@include set-button-text-color($color);
+
+			@if $force==force {
+				background-color: transparent;
+			}
+		}
+
+		// Solid buttons
+		@else if $type==solid {
+			background-color: $color;
+			border-color: $color;
+			@include set-button-text-color(get-contrasting-text-color($color));
+			// No force for this one since they all get defined again anyway
+		}
+
+		@else {
+			@error "This mixin supports: text, outline or solid as a type option";
+		}
+	}
+}
+
+/*
+Set Button Colour
+Only use this if you want to set button colour combos which aren't in the button-color map (and you don't want to add a new one)
+Color 1 is the primary colour of the button
+Color 2 is the color of the button when it is in a "state".
+     the colours can be variables, or map calls, or a HEX code, so long as it results in a colour
+Type lets you pick whether the button is solid, outline or text. Default is solid
+Force lets you redefine(reinforce) the colours when in a hover/focus/active state (i.e to override lampbot),
+     it includes the colours which normally don't get redefined in a state
+     this is not included by default, set it to 'force' to activate
+Example: To make a button which is normally red, but turns green on hover, you would call:
+     @include set-button-color(red, green);
+     If you wanted it to be an outline button, you would instead call:
+	 @include set-button-color(red, green, outline);
+*/
+
+@mixin set-button-color ($color-1, $color-2, $type: solid, $force: false) {
+
+	@if ($force !=force and $force !=false) {
+		@error "This mixin supports force or false as a force option. You used: "+$force;
+	}
+
+	// Text buttons
+	@if $type==text {
+		background-color: transparent;
+		border-color: transparent;
+		@include set-button-text-color($color-1);
+		@include set-button-hover-color($color-2, text, $force);
+	}
+
+	// Outline buttons
+	@else if $type==outline {
+		background-color: transparent;
+		border-color: $color-1;
+		@include set-button-text-color($color-1);
+		@include set-button-hover-color($color-2, outline, $force);
+	}
+
+	// Solid buttons
+	@else if $type==solid {
+		background-color: $color-1;
+		border-color: $color-1;
+		@include set-button-text-color(get-contrasting-text-color($color-1));
+		@include set-button-hover-color($color-2, solid, $force);
+	}
+
+	@else {
+		@error "This mixin supports: text, outline or solid as a type option";
+	}
+}
+
+/* 
+Set button colour from name (PREFERRED BUTTON COLOUR MIXIN)
+Preferred because it uses colour sets from the button colour map, which accounts for dark and light themes.
+Mixin to set colours for the given colour name
+Type and force options are same as defined in the set-button-color mixin,
+     Both variables are passed into that mixin
+Color Name should be one of the colours in the button colors map (i.e. primary or disabled)
+*/
+@mixin set-button-color-from-name($color-name, $type: solid, $force: false) {
+	$color-map: map-get($button-colors, $color-name);
+
+	@each $theme-name,
+	$theme-map in $themes {
+		.theme-#{$theme-name} & {
+			@include set-button-color(map-get($color-map, $theme-name), map-get($color-map, #{$theme-name}-alt), $type, $force);
+		}
+	}
+}
+
+
+// Set all button colours --ONLY RUNS ONCE, DON'T CALL THIS MIXIN--
+// Loops through the colours defined in the button-colors map, and sets the colours if the css class is included
+//      (i.e. since subtle is a colour in the map, if something has the class btn--subtle, it will have those colours applied to it)
+@mixin set-all-button-colors() {
+
+	@each $color-name,
+	$color-map in $button-colors {
+		.btn--#{$color-name} {
+			@include set-button-color-from-name($color-name);
+
+			// If there is an additional class defining what ype of button should be here, then these selectors will override the previous colour definition
+			&.btn--outline {
+				@include set-button-color-from-name($color-name, outline);
+			}
+
+			&.btn--text {
+				@include set-button-color-from-name($color-name, text);
+			}
+		}
+	}
+}
+
+@include set-all-button-colors;
+
+//Set button gradients
+@each $color in $gradient-colors {
+	.btn--#{$color} {
+		border-image-slice: 1;
+		@if $color == main {
+			@include main;
+			border-image-source: linear-gradient(to right, $color-brand-01, $color-primary);
+		}
+		@else {
+			@error "You must use a gradient name found in colors.scss";
+		}
+		&:hover {
+			background-size: 200% 200%;
+			background-position-x: -100%;
+			-webkit-animation: slideGradient 5s ease infinite;
+			-moz-animation: slideGradient 5s ease infinite;
+			animation: slideGradient 3s ease infinite;
+		}
+	}
+}

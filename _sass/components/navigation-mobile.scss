@@ -1,0 +1,300 @@
+/* Mobile navigation, note that on mobile we are replacing the horizontal nav with the 
+hamburger and slide out navigation */
+
+/* START HAMBURGER */
+#menu,
+.menu-link {
+	position: fixed;
+	z-index: 6;
+
+	@include media-min(md) {
+		display: none;
+	}
+
+	&:focus {
+		border: none;
+	}
+}
+
+// https://codepen.io/designcouch/pen/Atyop
+/* Icon 1 */
+
+#nav-icon1 {
+	//hamburger width
+	width: convert-rem(25px);
+	height: convert-rem(30px);
+
+	@include media-min(sm) {
+		width: convert-rem(35px);
+		height: convert-rem(40px);
+	}
+
+	position: relative;
+	margin: $space-sm 0 $space-sm $space-sm;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: 0.5s ease-in-out;
+	-moz-transition: 0.5s ease-in-out;
+	-o-transition: 0.5s ease-in-out;
+	transition: 0.5s ease-in-out;
+	cursor: pointer;
+
+	//hamburger (3 spans for animating purposes)
+	span {
+		display: block;
+		position: absolute;
+		height: convert-rem(3px);
+		width: 100%;
+
+		@include media-min(sm) {
+			height: convert-rem(5px);
+		}
+
+		@include themify {
+			background: get-contrasting-text-color(themed("background-color"));
+		}
+
+		border-radius: convert-rem(9px);
+		opacity: 1;
+		left: 0;
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		transform: rotate(0deg);
+		-webkit-transition: 0.25s ease-in-out;
+		-moz-transition: 0.25s ease-in-out;
+		-o-transition: 0.25s ease-in-out;
+		transition: 0.25s ease-in-out;
+
+		&:nth-child(1) {
+			top: convert-rem(0px);
+		}
+
+		&:nth-child(2) {
+			top: convert-rem(8px);
+
+			@include media-min(sm) {
+				top: convert-rem(11px);
+			}
+		}
+
+		&:nth-child(3) {
+			top: convert-rem(16px);
+
+			@include media-min(sm) {
+				top: convert-rem(22px);
+			}
+		}
+	}
+
+	//animate to x
+	&.open {
+		span {
+			&:nth-child(1) {
+				top: convert-rem(10px);
+				-webkit-transform: rotate(135deg);
+				-moz-transform: rotate(135deg);
+				-o-transform: rotate(135deg);
+				transform: rotate(135deg);
+			}
+
+			&:nth-child(2) {
+				opacity: 0;
+				left: convert-rem(-60px);
+			}
+
+			&:nth-child(3) {
+				top: convert-rem(10px);
+				-webkit-transform: rotate(-135deg);
+				-moz-transform: rotate(-135deg);
+				-o-transform: rotate(-135deg);
+				transform: rotate(-135deg);
+			}
+		}
+	}
+}
+
+.menu-link {
+	margin-top: $space-xxs;
+	right: $space-xs;
+}
+
+/* END HAMBURGER */
+
+//navigation whole - converting horizontal navigation to slide out navigation on acive
+#navigation {
+	//iPad size styling
+	@include media(smd) {
+		position: fixed;
+		z-index: 4;
+		width: 100%;
+		height: 100vh;
+		height: calc(var(--vh, 1vh) * 100);
+		padding: $space-xs $space-md;
+		overflow: hidden;
+		@include shadow-box(minor);
+		background-image: url(/assets/img/left-long-leaf.svg);
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position-y: -10px;
+		
+
+		&.inactive {
+			left: 100vw;
+			@include transform-timing($animation-time);
+		}
+
+		&.active {
+			opacity: 1;
+			left: 0;
+			@include slideInRight($animation-time);
+		}
+
+		@include themify {
+			background-color: themed("background-color");
+		}
+
+		ul {
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			height: 100%;
+			margin: 0;
+
+			li {
+				padding: 0 $space-xs $space-xs;
+				&:first-of-type {
+					margin-top: auto;
+				}
+
+				a {
+					font-family: $heading-font-family;
+					font-size: $text-lg;
+					width: fit-content;
+
+					&.btn {
+						font-size: $text-md;
+						margin: $space-xxs 0;
+						padding: $space-xs $space-sm;
+						font-weight: $text-regular;
+					}
+
+					&#contact {
+						display: flex;
+						flex-direction: row;
+						justify-content: flex-end;
+						z-index: 2;
+
+						.icon-chevron-down {
+							display: none;
+						}
+
+						@include icon(after, chevron-right);
+
+						&:after {
+							background-color: $color-primary;
+							margin: 0 0 0 $space-sm;
+							position: relative;
+							height: $text-lg;
+							width: $text-lg;
+							@include motion-selected-bounce-x;
+						}
+					}
+				}
+
+				//contact content
+				.contact-content {
+					flex-direction: column;
+					overflow-y: auto;
+
+					@include themify {
+						background-color: themed("background-color");
+					}
+
+					top: 0;
+					&__visible {
+						right: 0;
+						height: 100vh;
+						height: calc(var(--vh, 1vh) * 100);
+						width: 100vw;
+						@include slideInRight($animation-time);
+					}
+
+					&__hidden {
+						right: -100vw;
+					}
+					.contact-nav-form {
+						padding-top: $space-xs;
+					}
+					.contact {
+						display: block;
+						margin: $space-sm auto $space-md $space-lg;
+					}
+					.icon-chevron-left.contact:before {
+						height: $text-lg;
+						width: $text-lg;
+					}
+					p a {
+						font-size: $base-font-size;
+					}
+				}
+			}
+		}
+	}
+
+	//mobile size styling
+	@include media(xsm) {
+		ul {
+			li {
+				a {
+					font-family: $heading-font-family;
+					font-size: 2rem;
+					line-height: 1.5;
+
+					&.btn {
+						font-size: $text-md;
+						padding: $space-xxs $space-sm;
+					}
+
+					&#contact {
+						&:after {
+							height: $text-md;
+							width: $text-md;
+						}
+					}
+				}
+
+				//contact content
+				.contact-content {
+					//contact back link
+					.contact {
+						margin: $space-xs $space-md;
+						width: fit-content;
+						height: 60px;
+						display: flex;
+
+						&:before {
+							height: $text-md;
+							width: $text-md;
+							background-color: $color-primary;
+						}
+					}
+
+					.contact-nav-form {
+						margin-top: 15px;
+					}
+				}
+			}
+		}
+	}
+
+	@include media(xs) {
+		padding: $space-lg $space-md;
+
+		textarea {
+			height: 160px;
+		}
+	}
+}
