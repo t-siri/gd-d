@@ -1,13 +1,13 @@
 <nav id="navigation" class="inactive">
 	<ul>
-		<li><a href="#about" aria-label="Back to top">Home</a></li>
-		<li><a href="#about" aria-label="about section" {% if page.url=='#about' %}class="active" {% endif %}>About</a>
-		</li>
-		<li><a href="#team" aria-label="Meet the team" {% if page.url=='#team' %}class="active" {% endif %}>Team</a>
-		</li>
-		<li><a href="#services" aria-label="services we provide" {% if page.url=='#services' %}class="active" {% endif
+		<li class="nav-list-item"><a href="#home" aria-label="Back to top">Home</a></li>
+		<li class="nav-list-item"><a href="#services" aria-label="services we provide" {% if page.url=='#services' %}class="active" {% endif
 				%}>Services</a></li>
-		<li><a href="#contact" aria-label="contact us" {% if page.url=='#contact' %}class="active" {% endif
+		<li class="nav-list-item"><a href="#about" aria-label="about section" {% if page.url=='#about' %}class="active" {% endif %}>About</a>
+		</li>
+		<li class="nav-list-item"><a href="#team" aria-label="Meet the team" {% if page.url=='#team' %}class="active" {% endif %}>Team</a>
+		</li>
+		<li class="nav-list-item"><a href="#contact-form" aria-label="contact us" {% if page.url=='#contact' %}class="active" {% endif
 				%}>Contact</a></li>
 	</ul>
 </nav>

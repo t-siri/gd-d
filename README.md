@@ -45,7 +45,7 @@ f## Developing Locally
     bundle config build.libv8 --with-system-v8
     bundle config build.therubyracer --with-v8-dir=$(brew --prefix v8@3.15)
     ```
-12. In the `portfolio` folder, run
+12. In the `gd-d` folder, run
     ```bash
     bundle install
     bundle update
@@ -61,19 +61,16 @@ f## Developing Locally
 
 The structure is built around the fact that the site is built with Jekyll
 
-* `_blog`: A submodule that contains all the blog articles
-* `_data`: Contains data files that can be used in Liquid and for generating pages (e.g. silo pages)
-* `_includes`: Contains `html` and `md` files that can be *included* in other files (like partials)
+* `_data`: Contains data files that can be used in Liquid and for generating pages
+* `_includes`: Contains `html` and `md` files that can be *included* in other files 
 * `_layouts`: Jekyll Layouts that can be used via the Front Matter of a page
-* `_library`: Similar to `_blog` but not a submodule and contains knowledge base articles
 * `_pages`: Contains static pages (i.e. not generated like silo pages or articles html)
 * `_plugins`: Ruby plugins for Jekyll that modify the build process and provide additional features
 * `_sass`: Contains styling code
-* `_assets`: Contains media, javascript and such. Is loaded as is to site (if you want to link to items)
+* `_assets`: Contains media, javascript and such. 
 
 ### Files
 
-* `_config_prod.yml`: Special configuration applied to production site
 * `_config.yml`: Jekyll configuration settings
 * `.gitlab-ci.yml`: Tell GitLab how to build the site and deploy it automatically
 * `Gemfile`: Contains the Ruby Gems need to run Jekyll and build the site
